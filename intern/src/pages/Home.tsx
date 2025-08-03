@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
 
 function Home() {
     const navigate = useNavigate();
     const [referral_code, setReferralCode] = useState('...');
     const [intern_name, setInternName] = useState("...");
     const [donation_Amount, setDonationAmount] = useState("...");
+
+    useEffect(()=>{
+         axios.get("https://intern-project-liard.vercel.app/data")
+         .then(responce =>{
+               console.log(responce.data.data[0]);
+               setInternName(responce.data.data[0].name);
+               setReferralCode(responce.data.data[0].referral_code);
+               setDonationAmount(`₹${responce.data.data[0].donation_Amount}`);
+         })
+    },[]);
 
   return (
     <div className="bg-gray-100 flex justify-center w-full">
@@ -27,7 +38,7 @@ function Home() {
                         <span id="referral-code" className="bg-indigo-700 text-white font-mono text-sm px-3 py-1 rounded-full">{referral_code}</span>
                         <button className="ml-2 p-1 rounded-full hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                             </svg>
                         </button>
                     </div>
@@ -42,8 +53,8 @@ function Home() {
                             <span id="donations-raised" className="text-3xl font-bold">{donation_Amount}</span>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.485 0-4.5 2.015-4.5 4.5S9.515 17 12 17s4.5-2.015 4.5-4.5S14.485 8 12 8z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v.01M12 20v.01M4 12h.01M20 12h.01M6.343 6.343l.01.01M17.657 17.657l.01.01M6.343 17.657l.01.01M17.657 6.343l.01.01" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-2.485 0-4.5 2.015-4.5 4.5S9.515 17 12 17s4.5-2.015 4.5-4.5S14.485 8 12 8z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v.01M12 20v.01M4 12h.01M20 12h.01M6.343 6.343l.01.01M17.657 17.657l.01.01M6.343 17.657l.01.01M17.657 6.343l.01.01" />
                         </svg>
                     </div>
 
@@ -53,7 +64,7 @@ function Home() {
                             <span id="rewards-tier" className="text-3xl font-bold">Silver Tier</span>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                     </div>
              

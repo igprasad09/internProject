@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const { demoData } = require('./db/data');
+require('dotenv').config()
+const port = process.env.PORT || 3000;
+
 const app = express();
 
 app.use(cors());
@@ -12,4 +15,4 @@ app.get("/data",async(req, res)=>{
       })
 })
 
-app.listen(3000, console.log("server is running....."))
+app.listen(port, console.log("server is running....."))
